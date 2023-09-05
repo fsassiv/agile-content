@@ -8,7 +8,7 @@ export const SearchBlock = () => {
   const [searchTerm, setSeatchTerm] = useState('')
 
   const doSearch = () => {
-    navigate(`/results?search=${searchTerm}`)
+    navigate(`/results?search=${searchTerm}&page=0`)
   }
 
   return (

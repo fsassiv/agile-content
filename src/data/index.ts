@@ -24,10 +24,26 @@ const data: DataTypes[] = [...new Array(100)].map((item, index) => {
   }
 })
 
-export const getAnimals = (text: string) => {
+const paginatedData = (list: DataTypes[]) => {
+  const res = []
+  for (let i = 0; i < list.length; i += 10) {
+    const chunk = list.slice(i, i + 10)
+    res.push(chunk)
+  }
+  return res
+}
+
+export const getAnimals = (text: string, page = 0) => {
   const filtered = data.filter((item) => item.title.includes(text) || item.type.includes(text))
 
-  return new Promise<{ data: DataTypes[] }>(function (resolve) {
-    setTimeout(() => resolve({ data: filtered }), 1000)
+  return new Promise<{ data: DataTypes[]; totalPages: number }>(function (resolve) {
+    setTimeout(
+      () =>
+        resolve({
+          data: paginatedData(filtered)[page],
+          totalPages: paginatedData(filtered).length,
+        }),
+      1000,
+    )
   })
 }

@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { ReactComponent as GridIcon } from '../../assets/icons/grid.svg'
 import { SearchBar } from '../searchBar'
 import {
@@ -15,13 +16,21 @@ import {
 export const Header = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const [searchTerm, setSeatchTerm] = useState('')
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const [text, setText] = useState('')
+
+  const searchTerm = () => searchParams.get('search') || ''
 
   const doSearch = () => {
-    navigate(`/results?search=${searchTerm}`)
+    navigate(`/results?search=${text}&page=0`)
   }
 
   const returnHome = () => navigate('/')
+
+  useEffect(() => {
+    setText(searchTerm())
+  }, [location])
 
   return (
     <HeaderStyles>
@@ -32,11 +41,7 @@ export const Header = () => {
             alt='Google logo'
             onClick={returnHome}
           />
-          <SearchBar
-            handleSearch={doSearch}
-            updateSearchTerm={setSeatchTerm}
-            searchTerm={searchTerm}
-          />
+          <SearchBar handleSearch={doSearch} updateSearchTerm={setText} searchTerm={text} />
         </HeaderSearchWrapper>
       ) : (
         <Title>
