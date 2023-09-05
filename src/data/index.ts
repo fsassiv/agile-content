@@ -26,6 +26,9 @@ const data: DataTypes[] = [...new Array(100)].map((item, index) => {
 
 const paginatedData = (list: DataTypes[]) => {
   const res = []
+  if (!list.length) {
+    return []
+  }
   for (let i = 0; i < list.length; i += 10) {
     const chunk = list.slice(i, i + 10)
     res.push(chunk)
@@ -40,7 +43,7 @@ export const getAnimals = (text: string, page = 0) => {
     setTimeout(
       () =>
         resolve({
-          data: paginatedData(filtered)[page],
+          data: paginatedData(filtered)[page] || [],
           totalPages: paginatedData(filtered).length,
         }),
       1000,

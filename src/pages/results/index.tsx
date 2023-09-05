@@ -27,6 +27,7 @@ export const Results = () => {
         const { data, totalPages } = await getAnimals(searchTerm(), page())
         setTotalPages(totalPages)
         setResults(data)
+        setIsLoading(false)
         return
       }
       setTotalPages(1)
