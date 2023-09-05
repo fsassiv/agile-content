@@ -5,7 +5,7 @@ export const SearchForm = styled.form`
   width: 100%;
 `
 export const SearchInput = styled.input`
-  border: 1px solid #606163;
+  border: 1px solid #f2f2f2;
   border-radius: 20px;
   padding: 10px 20px 10px 40px;
   width: 100%;

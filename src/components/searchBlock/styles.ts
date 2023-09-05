@@ -7,7 +7,7 @@ export const SearchBlockStyles = styled.div`
   width: 90%;
   max-width: 90vw;
   @media screen and (min-width: 720px) {
-    width: 50%;
+    width: 30%;
   }
 `
 
